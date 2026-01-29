@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Maps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: white;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-button:hover {
+            background: #f8fafc;
+        }
+
+        .tab-button.active-oekonomisch {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .tab-button.active-oekologisch {
+            background: #10b981;
+            color: white;
+        }
+
+        .tab-button.active-soziales {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #334155;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .char-count {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .summary {
+            margin-top: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .summary h2 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-badge {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-oekonomisch {
+            background: #3b82f6;
+        }
+
+        .badge-oekologisch {
+            background: #10b981;
+        }
+
+        .badge-soziales {
+            background: #8b5cf6;
+        }
+
+        .summary-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Story Maps</h1>
+            <p>Erfasse deine Gedanken in drei Dimensionen</p>
+        </div>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab-button active-oekonomisch" onclick="switchTab('oekonomisch')">
+                    Ökonomisches
+                </button>
+                <button class="tab-button" onclick="switchTab('oekologisch')">
+                    Ökologisches
+                </button>
+                <button class="tab-button" onclick="switchTab('soziales')">
+                    Soziales
+                </button>
+            </div>
+
+            <div class="content">
+                <div id="tab-oekonomisch" class="tab-content active">
+                    <div class="form-group">
+                        <label class="form-label">Ökonomisches</label>
+                        <textarea 
+                            id="text-oekonomisch" 
+                            placeholder="Gib hier deinen Text für Ökonomisches ein..."
+                            oninput="updateCharCount('oekonomisch')"></textarea>
+                        <div class="char-count">Zeichen: <span id="count-oekonomisch">0</span></div>
+                    </div>
+                </div>
+
+                <div id="tab-oekologisch" class="tab-content">
+                    <div class="form-group">
+                        <label class="form-label">Ökologisches</label>
+                        <textarea 
+                            id="text-oekologisch" 
+                            placeholder="Gib hier deinen Text für Ökologisches ein..."
+                            oninput="updateCharCount('oekologisch')"></textarea>
+                        <div class="char-count">Zeichen: <span id="count-oekologisch">0</span></div>
+                    </div>
+                </div>
+
+                <div id="tab-soziales" class="tab-content">
+                    <div class="form-group">
+                        <label class="form-label">Soziales</label>
+                        <textarea 
+                            id="text-soziales" 
+                            placeholder="Gib hier deinen Text für Soziales ein..."
+                            oninput="updateCharCount('soziales')"></textarea>
+                        <div class="char-count">Zeichen: <span id="count-soziales">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>Übersicht</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-badge badge-oekonomisch">Ökonomisches</div>
+                    <div class="summary-count" id="summary-oekonomisch">0</div>
+                    <div class="summary-label">Zeichen</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-badge badge-oekologisch">Ökologisches</div>
+                    <div class="summary-count" id="summary-oekologisch">0</div>
+                    <div class="summary-label">Zeichen</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-badge badge-soziales">Soziales</div>
+                    <div class="summary-count" id="summary-soziales">0</div>
+                    <div class="summary-label">Zeichen</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activeTab = 'oekonomisch';
+
+        function switchTab(tabName) {
+            // Deaktiviere alle Tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active-oekonomisch', 'active-oekologisch', 'active-soziales');
+            });
+
+            // Aktiviere den gewählten Tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Setze die richtige Farbe für den aktiven Button
+            const buttons = document.querySelectorAll('.tab-button');
+            const tabIndex = tabName === 'oekonomisch' ? 0 : tabName === 'oekologisch' ? 1 : 2;
+            buttons[tabIndex].classList.add('active-' + tabName);
+            
+            activeTab = tabName;
+        }
+
+        function updateCharCount(tabName) {
+            const textarea = document.getElementById('text-' + tabName);
+            const count = textarea.value.length;
+            
+            // Update einzelne Zeichenzählung
+            document.getElementById('count-' + tabName).textContent = count;
+            
+            // Update Übersicht
+            document.getElementById('summary-' + tabName).textContent = count;
+        }
+
+        // Initialisierung beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCharCount('oekonomisch');
+            updateCharCount('oekologisch');
+            updateCharCount('soziales');
+        });
+    </script>
+</body>
+</html>
