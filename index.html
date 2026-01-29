@@ -121,73 +121,12 @@
             outline: none;
             border-color: #3b82f6;
         }
-
-        .char-count {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        .summary {
-            margin-top: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-        }
-
-        .summary h2 {
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        .summary-item {
-            text-align: center;
-        }
-
-        .summary-badge {
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .badge-oekonomisch {
-            background: #3b82f6;
-        }
-
-        .badge-oekologisch {
-            background: #10b981;
-        }
-
-        .badge-soziales {
-            background: #8b5cf6;
-        }
-
-        .summary-count {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1e293b;
-        }
-
-        .summary-label {
-            font-size: 0.9rem;
-            color: #64748b;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📝 Story Maps</h1>
-            <p>Erfasse deine Gedanken in drei Dimensionen</p>
+            <p></p>
         </div>
 
         <div class="card">
@@ -211,7 +150,6 @@
                             id="text-oekonomisch" 
                             placeholder="Gib hier deinen Text für Ökonomisches ein..."
                             oninput="updateCharCount('oekonomisch')"></textarea>
-                        <div class="char-count">Zeichen: <span id="count-oekonomisch">0</span></div>
                     </div>
                 </div>
 
@@ -222,7 +160,6 @@
                             id="text-oekologisch" 
                             placeholder="Gib hier deinen Text für Ökologisches ein..."
                             oninput="updateCharCount('oekologisch')"></textarea>
-                        <div class="char-count">Zeichen: <span id="count-oekologisch">0</span></div>
                     </div>
                 </div>
 
@@ -233,33 +170,10 @@
                             id="text-soziales" 
                             placeholder="Gib hier deinen Text für Soziales ein..."
                             oninput="updateCharCount('soziales')"></textarea>
-                        <div class="char-count">Zeichen: <span id="count-soziales">0</span></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="summary">
-            <h2>Übersicht</h2>
-            <div class="summary-grid">
-                <div class="summary-item">
-                    <div class="summary-badge badge-oekonomisch">Ökonomisches</div>
-                    <div class="summary-count" id="summary-oekonomisch">0</div>
-                    <div class="summary-label">Zeichen</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-badge badge-oekologisch">Ökologisches</div>
-                    <div class="summary-count" id="summary-oekologisch">0</div>
-                    <div class="summary-label">Zeichen</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-badge badge-soziales">Soziales</div>
-                    <div class="summary-count" id="summary-soziales">0</div>
-                    <div class="summary-label">Zeichen</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         let activeTab = 'oekonomisch';
@@ -285,22 +199,8 @@
         }
 
         function updateCharCount(tabName) {
-            const textarea = document.getElementById('text-' + tabName);
-            const count = textarea.value.length;
-            
-            // Update einzelne Zeichenzählung
-            document.getElementById('count-' + tabName).textContent = count;
-            
-            // Update Übersicht
-            document.getElementById('summary-' + tabName).textContent = count;
+            // Funktion bleibt für zukünftige Verwendung erhalten
         }
-
-        // Initialisierung beim Laden der Seite
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCharCount('oekonomisch');
-            updateCharCount('oekologisch');
-            updateCharCount('soziales');
-        });
     </script>
 </body>
 </html>
